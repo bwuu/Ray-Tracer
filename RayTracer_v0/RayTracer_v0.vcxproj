@@ -77,6 +77,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="cutest.h" />
+    <ClInclude Include="Engine.h" />
     <ClInclude Include="RayTraceStructs.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shapes.h" />
@@ -85,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cutest.cpp" />
+    <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="RaytraceStructs.cpp" />
     <ClCompile Include="Scene.cpp" />

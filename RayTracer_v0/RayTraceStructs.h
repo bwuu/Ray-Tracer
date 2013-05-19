@@ -1,11 +1,14 @@
 #ifndef RT_STRUCTS
 #define RT_STRUCTS
 
+//  CONTAINS STRUCTURES AND CLASSES FOR RAY CASTING, INTERSECTION
+//  CALCULATION AND LIGHTING CALCUATIONS
+
 #include "Vec3.h"
 class Scene;
 class Shape;
 
-//  Ray Structs
+//  Rays for ray casting
 struct Ray {
 	Vec3 orig;
 	Vec3 dir;
@@ -23,6 +26,7 @@ struct ShadowRay : public Ray {
 	ShadowRay(Vec3 orig, Vec3 dir, double raylen);
 };
 
+//  holds data describing a ray-object intersection event
 struct Intersection
 {
 	Vec3 pos;
@@ -33,11 +37,11 @@ struct Intersection
 };
 
 // LIGHTING STRUCTS //
-
 class LightSource
 {
 public:
-	virtual ShadowRay get_shadowray(Vec3)=0;
+	//  returns shadowray to use for shadow checks
+	virtual ShadowRay get_shadowray(Vec3 point)=0;
 };
 
 class PointLight : public LightSource
@@ -48,36 +52,14 @@ private:
 public:
 	PointLight ();
 	// intensity forced within range 0-1
-	PointLight (Vec3 pos); //  <- color set to white
+	//  sets color to white by default
+	PointLight (Vec3 pos);
 	PointLight (Vec3 pos, RGB color);
 	RGB get_color();
+	//  returns shadowray to use for shadow checks
 	ShadowRay get_shadowray(Vec3 point);
 };
 
-// viewpoint structs
-class RayCastEngine
-{
-public:
-	//  image resolution
-	int w, h;
-};
-
-class RegCast: public RayCastEngine
-{
-	//  camera position
-	Vec3 pos;
-	//  distance of viewing plane
-	double plane_dist;
-	//  boundaries of viewing plane
-	double l, r, u, d;
-	//  width/height of pixel; calculated internally
-	double pixel_size;
-	//  centre of lower left pixel
-	Vec3 LL;
-public:
-	RegCast (double l, double r, double u, double d, double plane_dist, int x_resolution);
-	bool raytrace_scene(Scene& theScene);
-};
 
 
 #endif

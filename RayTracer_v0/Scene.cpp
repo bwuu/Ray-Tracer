@@ -1,6 +1,8 @@
 
 #include "stdafx.h"
 #include "Scene.h"
+#include "Shapes.h"
+#include "RayTraceStructs.h"
 
 const int MAX_DEPTH = 5;
 const double MIN_INTENSITY = 0.05;
@@ -12,17 +14,17 @@ Scene::Scene ()
 	active_lights = 0;
 }
 
-void Scene::add_primitive(Shape* sp) 
+void Scene::add_primitive(Shape& shape) 
 {
 	//  add error catching for exceeding max
-	prim_refs[active_prims] = sp;
+	prim_refs[active_prims] = &shape;
 	active_prims++;
 }
 
-void Scene::add_lightsource(LightSource* lp) 
+void Scene::add_lightsource(LightSource& lightsource) 
 {
 	//  add error catching for exceeding max
-	light_refs[active_lights] = lp;
+	light_refs[active_lights] = &lightsource;
 	active_lights++;
 }
 

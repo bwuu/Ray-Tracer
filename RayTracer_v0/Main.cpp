@@ -3,6 +3,8 @@
 
 #include "RayTraceStructs.h"
 #include "Scene.h"
+#include "Shapes.h"
+#include "Engine.h"
 #include <conio.h>
 
 //  Possible problem causes:
@@ -24,32 +26,39 @@ int main()
 	Scene theScene;
 
 	Vec3 zeros (0.0, 0.0, 0.0);
-	Vec3 spos1 (0.4, 0.2, -1.7);
-	Vec3 spos2 (-1.0, -.2, -2.5);
+
 	Vec3 white (1.0, 1.0, 1.0);
 	Vec3 purple (0.6, 0.2, 0.6);
 	Vec3 grey (0.3, 0.3, 0.3);
-	Sphere S1(spos1, 0.4, zeros, zeros, white, 0.0, 1.0, 1.01);
-	theScene.add_primitive(&S1);
-	Sphere S2(spos2, 0.4, zeros, zeros, white, 0.0, 1.0, 1.01);
-	theScene.add_primitive(&S2);
 
+	//  some spheres
+	Vec3 spos1 (0.4, 0.2, -1.7);
+	Sphere S1(spos1, 0.4, zeros, zeros, white, 0.0, 1.0, 1.01);
+	theScene.add_primitive(S1);
+
+	Vec3 spos2 (-1.0, -.2, -2.5);
+	Sphere S2(spos2, 0.4, zeros, zeros, white, 0.0, 1.0, 1.01);
+	theScene.add_primitive(S2);
+
+	//  two triangles to form bottom plane
 	Vec3 v1 (1000.0, -2.0, -1000.0);
 	Vec3 v2 (-1000.0, -2.0, -1000.0);
 	Vec3 v3 (-1000.0, -2.0, 1000.0);
 	Vec3 v4 (1000.0, -2.0, 1000.0);
 	Triangle T1 (v1, v2, v3, zeros, white, zeros, 0.0, 0.0, 2.0);
-	theScene.add_primitive(&T1);
+	theScene.add_primitive(T1);
 	Triangle T2 (v1, v3, v4, zeros, white, zeros, 0.0, 0.0, 2.0);
-	theScene.add_primitive(&T2);
+	theScene.add_primitive(T2);
 
+	//  a high-up light
 	Vec3 lpos1(0.0, 500.0, -2.0);
 	Vec3 lpos2(-4.0, 0.0, -2.0);
 	PointLight L1(lpos1);
 	PointLight L2(lpos2);
-	theScene.add_lightsource(&L1);
+	theScene.add_lightsource(L1);
 	//theScene.add_lightsource(&L2);
 
+	//  useless debugging code
 	/*
 	Vec3 origin (0.0, 0.0, 0.0);
 	Vec3 negz (-1.0, -0.8, -1.0);

@@ -1,9 +1,11 @@
 #ifndef SCENE
 #define SCENE
 
+class Shape;
+class LightSource;
+class Ray;
+
 #include "Vec3.h"
-#include "RayTraceStructs.h"
-#include "Shapes.h"
 
 class Scene
 {
@@ -18,8 +20,8 @@ private:
 	LightSource* light_refs[10];
 public:
 	Scene ();
-	void add_primitive(Shape* shape_p);
-	void add_lightsource(LightSource* lightsource_p);
+	void add_primitive(Shape& shape);
+	void add_lightsource(LightSource& lightsource);
 
 	RGB trace(Ray ray, double ray_intensity, int trace_depth);
 
